@@ -5,6 +5,8 @@ from rest_framework_nested import routers
 
 from sample.api import (ProfileViewSet, PopularUserCookBookViewSet, LatestUserCookBookViewSet,
     UserRecipesViewSet)
+from sample.views import UsersListView
+
 
 router = routers.DefaultRouter()
 router.register(r'profiles', ProfileViewSet, base_name='users')
@@ -19,6 +21,9 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^$', UsersListView.as_view(), name='home'),
+
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include(user_router.urls))
 ]

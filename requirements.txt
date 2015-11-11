@@ -2,3 +2,6 @@ Django
 djangorestframework
 django-filter
 drf-nested-routers
+libsass
+django-compressor
+django-sass-processor
