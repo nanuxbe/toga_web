@@ -8,20 +8,22 @@ class ProfilePage(Page):
 
 
 class UserInfo(DetailComponent, TemplateView):
-    endpoint = 'api-user-info'
-    verb = 'GET'
-    template_name = 'userinfo.html'
 
-    list_display = [
-        {
-            'field': 'picture',
-            'widget': 'widget-img',
-        }, {
-            'field': 'full_name'
-        }, {
-            'field': 'username'
-        }
-    ]
+    class Meta:
+        endpoint = 'api-user-info'
+        verb = 'GET'
+        template_name = 'userinfo.html'
+
+        list_display = [
+            {
+                'field': 'picture',
+                'widget': 'widget-img',
+            }, {
+                'field': 'full_name'
+            }, {
+                'field': 'username'
+            }
+        ]
 
     def get_endpoint_full_url(self, **kwargs):
         kwargs['username'] = self.request.kwargs['username']
