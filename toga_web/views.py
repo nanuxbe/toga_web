@@ -1,5 +1,5 @@
 from django.views import TemplateView
-from .components import ComponentList
+from .components.dummy import ComponentList
 
 
 class PageView(ComponentList, TemplateView):

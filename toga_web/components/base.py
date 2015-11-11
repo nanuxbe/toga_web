@@ -3,9 +3,6 @@ from collections import OrderedDict
 from django.core.exceptions import ImproperlyConfigured
 from django.utils import six
 
-from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.list import MultipleObjectMixin
-
 
 class ComponentOptions(object):
 
@@ -18,13 +15,13 @@ class ComponentOptions(object):
 
 class ComponentMetaClass(type):
     
-    def __new__(cls, name, bases, attrs):
+    def __new__(cls, name, bases, attrs, meta_class=ComponentOptions):
         new_class = super(ComponentMetaClass, cls).__new__(cls, name, bases, attrs)
 
         if bases == (BaseComponent, ):
             return new_class
 
-        opts = new_class._meta = ComponentOptions(getattr(new_class, 'Meta', None))
+        opts = new_class._meta = meta_class(getattr(new_class, 'Meta', None))
 
         if opts.serializer_class is None:
             raise ImproperlyConfigured('A component needs to define an endpoint')
@@ -33,7 +30,9 @@ class ComponentMetaClass(type):
 
 
 class BaseComponent(object):
-    pass
+    
+    def render(self, request):
+        raise NotImplementedError('Please implement a proper render method')
 
 
 class DeclarativeComponentsMetaClass(ComponentMetaClass):
@@ -85,19 +84,19 @@ class ComponentMixin(six.with_metaclass(ComponentMetaClass, BaseComponent)):
 
 class ComponentListMixin(six.with_metaclass(DeclarativeComponentsMetaClass, BaseComponent)):
 
+    @property
+    def component_names:
+        return self.declared_components.keys()
+
     def get_context_data(self, **kwargs):
         context = super(ComponentListMixin, self).get_context_data(**kwargs)
-        
+
+        components = {}
+
         for key, component in self.declared_components.items():
-            context[key] = component.as_component(self.request)
+            components[key] = component.render(request)
+
+        context['components'] = components
+        context['component_names'] = self.component_names
 
         return context
-
-
-class DetailComponentMixin(SingleObjectMixin, ComponentMixin):
-    pass
-
-
-class ListComponentMixin(MultipleObjectMixin, ComponentMixin):
-    pass
-
