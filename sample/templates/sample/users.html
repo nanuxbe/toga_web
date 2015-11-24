@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Available profiles</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Profile</th>
+      </thead>
+      <tbody>
+        {% for object in object_list %}
+          <tr>
+            <td>{{object}}</td>
+            <td>
+              <a href="#" class="icon" title="Plain Django + HTML">&lt;&gt;</a>&nbsp;&nbsp;
+              <a href="#" class="icon" title="React + request">{% include "inline_svgs/react.html" %}</a>&nbsp;&nbsp;
+              <a href="#" class="icon" title="Angular">{% include "inline_svgs/angular.html" %}
+              </a>&nbsp;
+              <a href="#" class="icon" title="Ember">{% include "inline_svgs/ember.html" %}</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <th colspan="2">
+              No profiles found, please load some fixtures
+            </th>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock content %}

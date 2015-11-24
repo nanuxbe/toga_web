@@ -1,0 +1,18 @@
+/* Use this file to overwrite Bootstrap variable values */
+$brand-primary: #0C3C26;
+$brand-secondary: #44B78B;
+$link-color: $brand-secondary;
+$link-hover-color: darken($brand-secondary, 10%);
+
+$white: #ffffff;
+
+$border-radius-base: 0;
+$border-radius-large: 0;
+$border-radius-small: 0;
+
+$font-family-base: 'Roboto';
+$headings-font-weight: bold;
+
+$navbar-default-bg: $brand-primary;
+$navbar-default-color: $white;
+$navbar-default-link-color: $white;

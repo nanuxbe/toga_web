@@ -1,0 +1,39 @@
+/* Write your custom sass here */
+a {
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: none;
+    &.icon {
+      > svg {
+        fill: $link-hover-color;
+      }
+    }
+  }
+
+  &.icon {
+    font-size: 150%;
+    font-weight: normal;
+    > svg {
+      height: 16px;
+      width: auto;
+      fill: $link-color;
+    }
+  }
+}
+
+.navbar-default {
+  .navbar-brand {
+
+    margin: 0;
+
+    a {
+      color: $white;
+    }
+  }
+}
+
+h2 {
+  font-size: 175%;
+  color: $brand-secondary;
+}

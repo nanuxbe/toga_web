@@ -1,0 +1,22 @@
+{% load sass_tags %}
+
+<html>
+  <head>
+    <title>Toga Web Sample Application</title>
+    <link href="{% sass_src 'sass/css/site.scss' %}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <h1 class="navbar-brand"><a href="{% url 'home' %}">Toga Web Sample Application</a></h1>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
